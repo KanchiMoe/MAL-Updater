@@ -56,8 +56,14 @@ def main():
         logging.critical("No MAL_USERNAME set.")
         sys.exit(1)
 
-    update_site("mal-badges", "https://www.mal-badges.com/users", "/update")
-    update_site("anime.plus", "https://anime.plus", "?referral=search") # /queue-add
+    update_targets = [
+        ("mal-badges", "https://www.mal-badges.com/users", "/update"),
+        ("anime.plus", "https://anime.plus", "/queue-add"),
+        ("anime.plus", "https://anime.plus", "?referral=search"),
+    ]
+
+    for name, base_url, path in update_targets:
+        update_site(name, base_url, path)
 
 if __name__ == "__main__":
     main()
