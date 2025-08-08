@@ -1,0 +1,26 @@
+name: Update MAL badges and anime.plus
+
+on:
+  schedule:
+    - cron: '30 0 * * 1'     # Runs every Monday at 12:30 AM UTC
+  workflow_dispatch:         # Allows manual triggering
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        env:
+          MAL_USERNAME: ${{ secrets.MAL_USERNAME }}
+        run: python main.py
